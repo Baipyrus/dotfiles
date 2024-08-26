@@ -19,7 +19,7 @@ To use this configuration:
 2. Download all required configurations from files:
 
     ```pwsh
-    curl -LO "${Get-Content ./nvim/nvim}"
+    curl -LO "$(Get-Content ./nvim/nvim)"
     ```
 
 3. Copy the downloaded configuration to your system's specific location:

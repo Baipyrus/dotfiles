@@ -19,7 +19,7 @@ To use this configuration:
 2. Download all required themes from files:
 
     ```pwsh
-    curl -LO "${Get-Content ./alacritty/catpuccin-mocha}"
+    curl -LO "$(Get-Content ./alacritty/catpuccin-mocha)"
     ```
 
 3. Copy the `alacritty.yml` file and all downloaded themes to your Alacritty

@@ -15,7 +15,7 @@ To use this configuration:
 2. Download all required fonts from files:
 
     ```pwsh
-    curl -LO "${Get-Content ./nerd-fonts/CascadiaMono}.zip"
+    curl -LO "$(Get-Content ./nerd-fonts/CascadiaMono).zip"
     ```
 
 3. Unpack and install all downloaded fonts to your system's font storage.
