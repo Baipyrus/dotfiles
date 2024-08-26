@@ -1,0 +1,6 @@
+[shell]
+program = "pwsh"
+args = [ "-WorkingDirectory ~" ]
+
+[font]
+normal = { family = "CaskaydiaCove Nerd Font Mono" }
