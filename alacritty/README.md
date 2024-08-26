@@ -1,11 +1,13 @@
 # Alacritty Configuration
 
-This directory contains my Alacritty terminal emulator configuration.
+This directory contains my configuration for the [Alacritty terminal emulator](https://alacritty.org/).
+Any other files contain references to themes to be used inside of Alacritty like
+`mocha` or `latte` from [`catppuccin`](https://github.com/catppuccin/alacritty).
 
 ## Files
 
 - **alacritty.yml**: This is the main configuration file for Alacritty, containing
-settings for colors, fonts, keybindings, and more.
+settings for shell, fonts, keybindings, and more.
 - **catppuccin-mocha**: This file contains the URL to the `catppuccin-mocha` theme
 for Alacritty.
 - **catppuccin-latte**: This file contains the URL to the `catppuccin-latte` theme

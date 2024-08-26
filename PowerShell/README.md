@@ -1,6 +1,7 @@
 # PowerShell Configuration
 
-This directory contains my PowerShell configuration files.
+This directory contains my [PowerShell](https://github.com/PowerShell/PowerShell)
+(pwsh) configuration files.
 
 ## Files
 

@@ -1,6 +1,7 @@
 # Nerd Fonts Configuration
 
-This directory contains my Nerd Fonts configuration and any related resources.
+This directory contains my [Nerd Fonts](https://www.nerdfonts.com/) configuration
+and any related resources.
 
 ## Files
 
