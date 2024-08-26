@@ -43,3 +43,14 @@ if ($settings.proxyEnable -and (!$env:http_proxy))
 } elseif ((!$settings.proxyEnable) -and $env:http_proxy)
 { UnsetProxy;
 }
+
+
+# Get theme personalization settings
+$settings = Get-ItemProperty -Path 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Themes\Personalize'
+
+# Read the content of the Alacritty config file
+$alacritty = "$env:APPDATA\alacritty\alacritty.toml"
+$content = Get-Content -Path $alacritty
+
+# Determine current theme
+$theme = $settings.AppsUseLightTheme
