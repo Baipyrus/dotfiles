@@ -1,0 +1,2 @@
+# Nerd Fonts configuration
+
