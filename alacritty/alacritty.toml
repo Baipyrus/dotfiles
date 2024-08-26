@@ -1,6 +1,12 @@
+import = [
+    "~/AppData/Roaming/alacritty/catppuccin-mocha.toml",
+    # "~/AppData/Roaming/alacritty/catppuccin-latte.toml",
+]
+live_config_reload = true
+
 [shell]
 program = "pwsh"
-args = [ "-WorkingDirectory ~" ]
 
 [font]
-normal = { family = "CaskaydiaCove Nerd Font Mono" }
+[font.normal]
+family = "CaskaydiaCove Nerd Font Mono"
