@@ -1,7 +1,8 @@
 # Get internet settings
 $settings = Get-ItemProperty -Path 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Internet Settings';
 
-function Set-Proxy {
+function SetProxy
+{
     # Get proxy data from settings
     $proxy_server = $settings.proxyServer;
 
@@ -18,9 +19,10 @@ function Set-Proxy {
     npm config set proxy $proxy_server;
     npm config set https-proxy $proxy_server;
 }
-Set-Alias -Name proxy-set -Value Set-Proxy
+Set-Alias -Name Proxy-Set -Value SetProxy;
 
-function Unset-Proxy {
+function UnsetProxy
+{
     # Unset proxy environment variables
     $env:http_proxy = ($env:https_proxy = '')
     [System.Environment]::SetEnvironmentVariable('http_proxy', [NullString]::Value, 'User');
@@ -34,7 +36,10 @@ function Unset-Proxy {
     npm config delete proxy;
     npm config delete https-proxy;
 }
-Set-Alias -Name proxy-unset -Value Unset-Proxy
+Set-Alias -Name Proxy-Unset -Value UnsetProxy;
 
-if ($settings.proxyEnable -and (!$env:http_proxy)) { Set-Proxy }
-elseif ((!$settings.proxyEnable) -and $env:http_proxy) { Unset-Proxy }
+if ($settings.proxyEnable -and (!$env:http_proxy))
+{ SetProxy;
+} elseif ((!$settings.proxyEnable) -and $env:http_proxy)
+{ UnsetProxy;
+}
