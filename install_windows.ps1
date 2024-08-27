@@ -76,7 +76,7 @@ function ProcessUrlFiles
     # Ensure the destination directory exists
     if (-not (Test-Path $destinationDir))
     {
-        Write-Host "Creating destination directory $destinationDir ..." -ForegroundColor Cyan
+        Write-Host "Creating destination directory $destinationDir..." -ForegroundColor Cyan
         New-Item -ItemType Directory -Path $destinationDir 2>$null
     }
 
@@ -112,7 +112,7 @@ function ProcessUrlFiles
         # If the URL is a git repository, pull it
         if (IsGitRepository -dir $destinationPath -url $url)
         {
-            Write-Host "Pulling inside existing repository $fileName ..." -ForegroundColor Cyan
+            Write-Host "Pulling inside existing repository $fileName..." -ForegroundColor Cyan
             git -C $destinationPath pull
             continue
         }
