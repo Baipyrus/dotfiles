@@ -70,11 +70,12 @@ function ProcessUrlFiles
 {
     param (
         [string]$sourceDir,
-        [string]$destinationDir
+        [Parameter(Mandatory=$false)][string]$destinationDir,
+        [Parameter(Mandatory=$false)][string]$fileExt
     )
 
     # Ensure the destination directory exists
-    if (-not (Test-Path $destinationDir))
+    if ($destinationDir -and (-not (Test-Path $destinationDir)))
     {
         Write-Host "Creating destination directory $destinationDir..." -ForegroundColor Cyan
         New-Item -ItemType Directory -Path $destinationDir 2>$null
@@ -100,13 +101,28 @@ function ProcessUrlFiles
         {
             # Otherwise, download the file
             $extension = [System.IO.Path]::GetExtension($url)
+            # Force apply $fileExt if given
+            if ($fileExt)
+            {
+                $extension = $fileExt
+                $url += $fileExt
+            }
             $destinationPath = "$destinationDir\$fileName$extension"
 
-            Write-Host "Downloading $fileName from $url to $destinationPath..." -ForegroundColor Cyan
+            # Respond only if destination is provided
+            $conditional = " to $destinationPath"
+            if (-not $destinationDir)
+            { $conditional = ''
+            }
+
+            Write-Host "Downloading $fileName from $url$conditional..." -ForegroundColor Cyan
             Set-Location $tmpApp; curl -LO $url; Set-Location -
             $tmpDestination = "$tmpApp\$fileName$extension"
 
-            CopyFileWithPrompt $tmpDestination $destinationPath
+            # Copy only if destination is provided
+            if ($destinationDir)
+            { CopyFileWithPrompt $tmpDestination $destinationPath
+            }
             continue
         }
         # If the URL is a git repository, pull it
@@ -136,6 +152,10 @@ ProcessUrlFiles -sourceDir "$dotfilesRepo\nvim" -destinationDir "$env:LOCALAPPDA
 # Setting up PowerShell Profile
 Write-Host "Setting up PowerShell profile..." -ForegroundColor Cyan
 CopyFileWithPrompt "$dotfilesRepo\PowerShell\Microsoft.PowerShell_profile.ps1" $psProfile
+
+# Installing Nerd Fonts
+Write-Host "Installing Nerd Fonts..." -ForegroundColor Cyan
+ProcessUrlFiles -sourceDir "$dotfilesRepo\nerd-fonts" -fileExt ".zip"
 
 # Final message
 Write-Host "Windows setup complete!" -ForegroundColor Green
