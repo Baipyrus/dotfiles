@@ -41,4 +41,34 @@ if (IsInDotfilesRepo -currentDir $currentDir)
         git -C $dotfilesRepo pull
     }
 }
+
+# Function to copy files with overwrite prompt
+function CopyFileWithPrompt
+{
+    param (
+        [string]$source,
+        [string]$destination
+    )
+
+    if (Test-Path $destination)
+    {
+        $overwrite = Read-Host "File $destination exists. Overwrite? (y/n)"
+        if ($overwrite -ne 'y')
+        {
+            Write-Host "Skipping $destination" -ForegroundColor Yellow
+            return
+        }
+    }
+    Copy-Item -Path $source -Destination $destination -Force
 }
+}
+
+# Copy the main Alacritty configuration file
+CopyFileWithPrompt "$dotfilesRepo\alacritty\alacritty.toml" "$alacrittyConfigDir\alacritty.toml"
+
+# Setting up PowerShell Profile
+Write-Host "Setting up PowerShell profile..." -ForegroundColor Cyan
+CopyFileWithPrompt "$dotfilesRepo\PowerShell\Microsoft.PowerShell_profile.ps1" $psProfile
+
+# Final message
+Write-Host "Windows setup complete!" -ForegroundColor Green
