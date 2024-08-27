@@ -76,8 +76,8 @@ function ProcessUrlFiles
     # Ensure the destination directory exists
     if (-not (Test-Path $destinationDir))
     {
-        New-Item -ItemType Directory -Path $destinationDir
-        return
+        Write-Host "Creating destination directory $destinationDir ..." -ForegroundColor Cyan
+        New-Item -ItemType Directory -Path $destinationDir 2>$null
     }
 
     # Create temporary directory for curl
