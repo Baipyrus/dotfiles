@@ -84,7 +84,7 @@ function ProcessUrlFiles
     $appname = $sourceDir.Split('\')[-1]
     $tmpApp = "$env:TMP\$appname-config"
     if (-not (Test-Path $tmpApp))
-    { New-Item -ItemType Directory -Path $tmpApp 
+    { New-Item -ItemType Directory -Path $tmpApp 2>$null
     }
 
     # Find all .url files in the source directory
