@@ -25,6 +25,7 @@ Alternatively, feel free to run the [install script](./install_windows.ps1) afte
 cloning the repository or directly execute it from shell:
 
 ```pwsh
-[string]::Join("`n", (curl -sL 'https://raw.githubusercontent.com/Baipyrus/dotfiles/main/install_windows.ps1'))
- | pwsh -c { $input | Invoke-Expression }
+# Using 'Invoke-RestMethod' and 'Invoke-Expression'
+irm 'https://raw.githubusercontent.com/Baipyrus/dotfiles/main/install_windows.ps1'
+ | iex
 ```
