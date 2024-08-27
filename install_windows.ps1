@@ -78,14 +78,14 @@ function ProcessUrlFiles
     if ($destinationDir -and (-not (Test-Path $destinationDir)))
     {
         Write-Host "Creating destination directory $destinationDir..." -ForegroundColor Cyan
-        New-Item -ItemType Directory -Path $destinationDir 2>$null
+        New-Item -ItemType Directory -Path $destinationDir | Out-Null
     }
 
     # Create temporary directory for curl
     $appname = $sourceDir.Split('\')[-1]
     $tmpApp = "$env:TMP\$appname-config"
     if (-not (Test-Path $tmpApp))
-    { New-Item -ItemType Directory -Path $tmpApp 2>$null
+    { New-Item -ItemType Directory -Path $tmpApp | Out-Null
     }
 
     # Find all .url files in the source directory
