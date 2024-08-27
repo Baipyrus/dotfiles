@@ -5,15 +5,18 @@ $psProfile = "$env:USERPROFILE\Documents\PowerShell\Microsoft.PowerShell_profile
 $repoUrl = "https://github.com/Baipyrus/dotfiles.git"
 
 # Function to determine if the current directory is the dotfiles repository
-function IsInDotfilesRepo
+function IsGitRepository
 {
-    param ([string]$currentDir)
+    param (
+        [string]$dir,
+        [string]$url
+    )
 
     try
     {
-        $isRepo = git -C $currentDir rev-parse --is-inside-work-tree 2>$null
-        $originUrl = git -C $currentDir remote get-url origin 2>$null
-        return $isRepo -eq 'true' -and $originUrl -eq $repoUrl
+        $isRepo = git -C $dir rev-parse --is-inside-work-tree 2>$null
+        $originUrl = git -C $dir remote get-url origin 2>$null
+        return $isRepo -eq 'true' -and $originUrl -eq $url
     } catch
     {
         return $false
@@ -23,7 +26,7 @@ function IsInDotfilesRepo
 # Check if the script is running inside the dotfiles repository
 $currentDir = (Get-Location).Path
 
-if (IsInDotfilesRepo -currentDir $currentDir)
+if (IsGitRepository -dir $currentDir -url $repoUrl)
 {
     Write-Host "Already inside the dotfiles repository. Skipping clone step and pulling..." -ForegroundColor Yellow
     $dotfilesRepo = $currentDir
@@ -77,6 +80,13 @@ function ProcessUrlFiles
         return
     }
 
+    # Create temporary directory for curl
+    $appname = $sourceDir.Split('\')[-1]
+    $tmpApp = "$env:TMP\$appname"
+    if (-not (Test-Path $tmpApp))
+    { New-Item -ItemType Directory -Path $tmpApp 
+    }
+
     # Find all .url files in the source directory
     $urlFiles = Get-ChildItem -Path $sourceDir -Filter '*.url'
 
@@ -86,20 +96,29 @@ function ProcessUrlFiles
         $fileName = [System.IO.Path]::GetFileNameWithoutExtension($file.Name)
         $destinationPath = "$destinationDir\$fileName"
 
-        if ($url -match 'git@|https://.*\.git')
-        {
-            # If the URL is a git repository, clone it
-            Write-Host "Cloning $fileName from $url to $destinationPath..." -ForegroundColor Cyan
-            git clone $url $destinationPath
-        } else
+        if (-not ($url -match 'git@|https://.*\.git'))
         {
             # Otherwise, download the file
             $extension = [System.IO.Path]::GetExtension($url)
             $destinationPath = "$destinationDir\$fileName$extension"
 
             Write-Host "Downloading $fileName from $url to $destinationPath..." -ForegroundColor Cyan
-            Set-Location $destinationDir; curl -LO $url; Set-Location -
+            Set-Location $tmpApp; curl -LO $url; Set-Location -
+            $tmpDestination = "$tmpApp\$fileName$extension"
+
+            CopyFileWithPrompt $tmpDestination $destinationPath
+            continue
         }
+        # If the URL is a git repository, pull it
+        if (IsGitRepository -dir $destinationPath -url $url)
+        {
+            Write-Host "Pulling inside existing repository $fileName ..." -ForegroundColor Cyan
+            git -C $destinationPath pull
+            continue
+        }
+        # Or otherwise clone it
+        Write-Host "Cloning $fileName from $url to $destinationPath..." -ForegroundColor Cyan
+        git clone $url $destinationPath 
     }
 }
 
