@@ -153,9 +153,38 @@ ProcessUrlFiles -sourceDir "$dotfilesRepo\nvim" -destinationDir "$env:LOCALAPPDA
 Write-Host "Setting up PowerShell profile..." -ForegroundColor Cyan
 CopyFileWithPrompt "$dotfilesRepo\PowerShell\Microsoft.PowerShell_profile.ps1" $psProfile
 
+function UnzipAndInstall
+{
+    param (
+        [string]$source,
+        [string]$path
+    )
+
+    # Create temporary directory for curl
+    $appname = $source.Split('\')[-1]
+    $tmpApp = "$env:TMP\$appname-config"
+    if (-not (Test-Path $tmpApp))
+    { New-Item -ItemType Directory -Path $tmpApp | Out-Null
+    }
+
+    # Find all .url files in the source directory
+    $urlFiles = Get-ChildItem -Path $source -Filter '*.url'
+
+    foreach ($file in $urlFiles)
+    {
+        $fileName = [System.IO.Path]::GetFileNameWithoutExtension($file.Name)
+        Write-Host "Extracting archive $tmpApp\$fileName.zip to $tmpApp\$fileName\..." -ForegroundColor Cyan
+        unzip -o "$tmpApp\$fileName.zip" -d "$tmpApp\$fileName" | Out-Null
+
+        Write-Host "Installing fonts from $tmpApp\$fileName\ for current user..." -ForegroundColor Cyan
+        Copy-Item -Path "$tmpApp\$fileName\*" -Destination "$env:LOCALAPPDATA\Microsoft\Windows\Fonts\" -Force -ErrorAction SilentlyContinue
+    }
+}
+
 # Installing Nerd Fonts
 Write-Host "Installing Nerd Fonts..." -ForegroundColor Cyan
 ProcessUrlFiles -sourceDir "$dotfilesRepo\nerd-fonts" -fileExt ".zip"
+UnzipAndInstall -source "$dotfilesRepo\nerd-fonts" -path "$env:TMP\nerd-fonts-config"
 
 # Final message
 Write-Host "Windows setup complete!" -ForegroundColor Green
