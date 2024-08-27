@@ -61,10 +61,58 @@ function CopyFileWithPrompt
     }
     Copy-Item -Path $source -Destination $destination -Force
 }
+
+# Function to handle URL files: download files or clone repositories
+function ProcessUrlFiles
+{
+    param (
+        [string]$sourceDir,
+        [string]$destinationDir
+    )
+
+    # Ensure the destination directory exists
+    if (-not (Test-Path $destinationDir))
+    {
+        New-Item -ItemType Directory -Path $destinationDir
+        return
+    }
+
+    # Find all .url files in the source directory
+    $urlFiles = Get-ChildItem -Path $sourceDir -Filter '*.url'
+
+    foreach ($file in $urlFiles)
+    {
+        $url = Get-Content $file.FullName
+        $fileName = [System.IO.Path]::GetFileNameWithoutExtension($file.Name)
+        $destinationPath = "$destinationDir\$fileName"
+
+        if ($url -match 'git@|https://.*\.git')
+        {
+            # If the URL is a git repository, clone it
+            Write-Host "Cloning $fileName from $url to $destinationPath..." -ForegroundColor Cyan
+            git clone $url $destinationPath
+        } else
+        {
+            # Otherwise, download the file
+            $extension = [System.IO.Path]::GetExtension($url)
+            $destinationPath = "$destinationDir\$fileName$extension"
+
+            Write-Host "Downloading $fileName from $url to $destinationPath..." -ForegroundColor Cyan
+            Set-Location $destinationDir; curl -LO $url; Set-Location -
+        }
+    }
 }
+
+# Setting up Alacritty Configuration
+Write-Host "Setting up Alacritty configuration..." -ForegroundColor Cyan
+ProcessUrlFiles -sourceDir "$dotfilesRepo\alacritty" -destinationDir $alacrittyConfigDir
 
 # Copy the main Alacritty configuration file
 CopyFileWithPrompt "$dotfilesRepo\alacritty\alacritty.toml" "$alacrittyConfigDir\alacritty.toml"
+
+# Setting up Neovim Configuration
+Write-Host "Setting up Neovim configuration..." -ForegroundColor Cyan
+ProcessUrlFiles -sourceDir "$dotfilesRepo\nvim" -destinationDir "$env:LOCALAPPDATA"
 
 # Setting up PowerShell Profile
 Write-Host "Setting up PowerShell profile..." -ForegroundColor Cyan
