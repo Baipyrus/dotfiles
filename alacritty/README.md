@@ -8,9 +8,9 @@ Any other files contain references to themes to be used inside of Alacritty like
 
 - **alacritty.yml**: This is the main configuration file for Alacritty, containing
 settings for shell, fonts, keybindings, and more.
-- **catppuccin-mocha**: This file contains the URL to the `catppuccin-mocha` theme
+- **catppuccin-mocha.url**: This file contains the URL to the `catppuccin-mocha` theme
 for Alacritty.
-- **catppuccin-latte**: This file contains the URL to the `catppuccin-latte` theme
+- **catppuccin-latte.url**: This file contains the URL to the `catppuccin-latte` theme
 for Alacritty.
 
 ## Installation
@@ -21,7 +21,7 @@ To use this configuration:
 2. Download all required themes from files:
 
     ```pwsh
-    curl -LO "$(Get-Content ./alacritty/catpuccin-mocha)"
+    curl -LO "$(Get-Content ./alacritty/catpuccin-mocha.url)"
     ```
 
 3. Copy the `alacritty.yml` file and all downloaded themes to your Alacritty

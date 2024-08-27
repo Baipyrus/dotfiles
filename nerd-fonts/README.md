@@ -5,8 +5,8 @@ and any related resources.
 
 ## Files
 
-- **CascadiaCode**: This file contains the URL to the `Cascadia Code` Nerd Font patch.
-- **CascadiaMono**: This file contains the URL to the `Cascadia Mono` Nerd Font patch.
+- **CascadiaCode.url**: This file contains the URL to the `Cascadia Code` Nerd Font patch.
+- **CascadiaMono.url**: This file contains the URL to the `Cascadia Mono` Nerd Font patch.
 
 ## Installation
 
@@ -16,7 +16,7 @@ To use this configuration:
 2. Download all required fonts from files:
 
     ```pwsh
-    curl -LO "$(Get-Content ./nerd-fonts/CascadiaMono).zip"
+    curl -LO "$(Get-Content ./nerd-fonts/CascadiaMono.url).zip"
     ```
 
 3. Unpack and install all downloaded fonts to your system's font storage.

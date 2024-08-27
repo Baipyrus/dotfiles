@@ -7,9 +7,9 @@ in my personal configuration.
 
 ## Files
 
-- **nvim**: This file contains the URL to my personal configuration that is to be
+- **nvim.url**: This file contains the URL to my personal configuration that is to be
 installed as the main configuration on the machine.
-- **nvim-modular**: This file contains the URL to the repository of [`kickstart-modular.nvim`](https://github.com/dam9000/kickstart-modular.nvim)
+- **nvim-modular.url**: This file contains the URL to the repository of [`kickstart-modular.nvim`](https://github.com/dam9000/kickstart-modular.nvim)
 which is serving as a secondary configuration for debugging purposes.
 
 ## Installation
@@ -20,7 +20,7 @@ To use this configuration:
 2. Download all required configurations from files:
 
     ```pwsh
-    git clone "$(Get-Content ./nvim/nvim)" $env:LOCALAPPDATA/nvim/
+    git clone "$(Get-Content ./nvim/nvim.url)" $env:LOCALAPPDATA/nvim/
     ```
 
 3. Copy the downloaded configuration to your system's specific location:
