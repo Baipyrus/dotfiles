@@ -30,7 +30,7 @@ if (IsGitRepository -dir $currentDir -url $repoUrl)
 {
     Write-Host "Already inside the dotfiles repository. Skipping clone step and pulling..." -ForegroundColor Yellow
     $dotfilesRepo = $currentDir
-    git -C $dotfilesRepo pull
+    git pull
 } else
 {
     # Clone dotfiles repository to TMP if not already inside it
