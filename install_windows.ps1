@@ -155,6 +155,10 @@ ProcessUrlFiles -sourceDir "$dotfilesRepo\nvim" -destinationDir "$env:LOCALAPPDA
 Write-Host "Setting up PowerShell profile..." -ForegroundColor Cyan
 CopyFileWithPrompt "$dotfilesRepo\PowerShell\Microsoft.PowerShell_profile.ps1" $psProfile
 
+# Setting up self-made ProxySwitcher
+Write-Host "Setting up ProxySwitcher..." -ForegroundColor Cyan
+Invoke-RestMethod 'https://raw.githubusercontent.com/Baipyrus/ProxySwitcher/main/install.ps1' | Invoke-Expression
+
 function UnzipAndInstall
 {
     param (
