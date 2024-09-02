@@ -87,6 +87,7 @@ function ProcessUrlFiles
     if (-not (Test-Path $tmpApp))
     { New-Item -ItemType Directory -Path $tmpApp | Out-Null
     }
+    Set-Location $tmpApp
 
     # Find all .url files in the source directory
     $urlFiles = Get-ChildItem -Path $sourceDir -Filter '*.url'
@@ -116,7 +117,7 @@ function ProcessUrlFiles
             }
 
             Write-Host "Downloading $fileName from $url$conditional..." -ForegroundColor Cyan
-            Set-Location $tmpApp; curl -LO $url; Set-Location -
+            curl -LO $url
             $tmpDestination = "$tmpApp\$fileName$extension"
 
             # Copy only if destination is provided
@@ -136,6 +137,7 @@ function ProcessUrlFiles
         Write-Host "Cloning $fileName from $url to $destinationPath..." -ForegroundColor Cyan
         git clone $url $destinationPath 
     }
+    Set-Location -
 }
 
 # Setting up Alacritty Configuration
