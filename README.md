@@ -26,6 +26,5 @@ cloning the repository or directly execute it from shell:
 
 ```pwsh
 # Using 'Invoke-RestMethod' and 'Invoke-Expression'
-irm 'https://raw.githubusercontent.com/Baipyrus/dotfiles/main/install_windows.ps1'
- | iex
+irm 'https://raw.githubusercontent.com/Baipyrus/dotfiles/main/install_windows.ps1' | iex
 ```
