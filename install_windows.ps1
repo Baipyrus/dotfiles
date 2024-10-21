@@ -162,8 +162,7 @@ Invoke-RestMethod 'https://raw.githubusercontent.com/Baipyrus/ProxySwitcher/main
 function UnzipAndInstall
 {
     param (
-        [string]$source,
-        [string]$path
+        [string]$source
     )
 
     # Create temporary directory for curl
@@ -190,7 +189,7 @@ function UnzipAndInstall
 # Installing Nerd Fonts
 Write-Host "Installing Nerd Fonts..." -ForegroundColor Cyan
 ProcessUrlFiles -sourceDir "$dotfilesRepo\nerd-fonts" -fileExt ".zip"
-UnzipAndInstall -source "$dotfilesRepo\nerd-fonts" -path "$env:TMP\nerd-fonts-config"
+UnzipAndInstall -source "$dotfilesRepo\nerd-fonts"
 
 # Final message
 Write-Host "Windows setup complete!" -ForegroundColor Green
