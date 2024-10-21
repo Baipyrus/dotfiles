@@ -160,6 +160,7 @@ if ($null -eq $ubuntu)
 { ProcessUrlFiles -sourceDir "$dotfilesRepo\nvim" -destinationDir "$env:LOCALAPPDATA"
 } else
 {
+    # TODO: Expand into generic WSL setup while installing required dev tools
     ProcessUrlFiles -sourceDir "$dotfilesRepo\nvim"
     Set-Location "$env:TMP\nvim-config"
     Write-Host "Copying (forcably) configuration to WSL..." -ForegroundColor Yellow
