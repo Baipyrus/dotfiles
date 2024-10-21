@@ -33,6 +33,15 @@ These tools include the following for Windows Installs (Recommended using [Choco
 - [Python](https://www.python.org/)
 - [Composer](https://getcomposer.org/)
 
+<details><summary>Winget and Chocolatey</summary>
+
+```pwsh
+winget install chocolatey.chocolatey Neovide.Neovide Alacritty.Alacritty Git.Git GoLang.Go Microsoft.DotNet.SDK.8 OpenJS.NodeJS.LTS Python.Python.3.12 Rustlang.Rustup
+choco install neovim ripgrep curl wget fd unzip gzip mingw make
+```
+
+</details>
+
 ## Installation
 
 To use these configurations, clone this repository and copy or symlink the necessary
