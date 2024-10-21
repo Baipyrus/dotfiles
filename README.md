@@ -33,6 +33,23 @@ These tools include the following for Windows Installs (Recommended using [Choco
 - [Python](https://www.python.org/)
 - [Composer](https://getcomposer.org/)
 
+<details><summary>Windows Subsystem for Linux</summary>
+
+```bash
+sudo apt update
+curl -fsSL https://deb.nodesource.com/setup_lts.x -o nodesource_setup.sh
+sudo -E bash nodesource_setup.sh
+sudo add-apt-repository ppa:neovim-ppa/unstable -y
+sudo apt install make gcc ripgrep unzip git xclip neovim nodejs python3-venv
+curl https://sh.rustup.rs -sSf | sh
+curl -LO https://go.dev/dl/go1.23.2.linux-amd64.tar.gz
+sudo rm -rf /usr/local/go
+sudo tar -C /usr/local -xzf go1.23.2.linux-amd64.tar.gz
+export PATH=$PATH:/usr/local/go/bin
+```
+
+</details>
+
 <details><summary>Winget and Chocolatey</summary>
 
 ```pwsh
