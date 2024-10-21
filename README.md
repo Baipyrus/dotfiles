@@ -11,6 +11,28 @@ directory. Below is a brief overview of the programs and configurations included
 - **nerd-fonts**: [Nerd Fonts installation](./nerd-fonts)
 - **nvim**: [Neovim configuration](./nvim)
 
+## Prerequisites
+
+While the installation of these dotfiles may not require the use of any external
+tools, it is still necessary to install all the main applications that are being
+configured, as seen in [Structure](#structure), and other tools needed for development.
+These tools include the following for Windows Installs (Recommended using [Chocolatey](https://chocolatey.org/)):
+
+- [Neovim](https://neovim.io/)
+- [Neovide](https://neovide.dev/)
+- [Alacritty](https://alacritty.org/)
+- [PowerShell 7](https://github.com/PowerShell/PowerShell)
+- [Git](https://git-scm.com/downloads)
+- [Make/CMake](https://cmake.org/)
+- [Unzip](https://community.chocolatey.org/packages/unzip)
+- [Build Tools](https://github.com/bycloudai/InstallVSBuildToolsWindows)/[MinGW](https://www.mingw-w64.org/downloads/)
+- [Rustup](https://www.rust-lang.org/tools/install)
+- [Golang](https://go.dev/dl/)
+- [NodeJS](https://nodejs.org/en)
+- [Dotnet](https://dotnet.microsoft.com/en-us/)
+- [Python](https://www.python.org/)
+- [Composer](https://getcomposer.org/)
+
 ## Installation
 
 To use these configurations, clone this repository and copy or symlink the necessary
