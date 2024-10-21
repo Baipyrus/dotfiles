@@ -158,6 +158,12 @@ Write-Host "Setting up Neovim configuration..." -ForegroundColor Cyan
 $ubuntu = wsl.exe -l --all | Where-Object { $_.Replace("`0", "") -match '^Ubuntu' }
 if ($null -eq $ubuntu)
 { ProcessUrlFiles -sourceDir "$dotfilesRepo\nvim" -destinationDir "$env:LOCALAPPDATA"
+} else
+{
+    ProcessUrlFiles -sourceDir "$dotfilesRepo\nvim"
+    Set-Location "$env:TMP\nvim-config"
+    wsl.exe cp -rf . ~/.config/ 2>$null | Out-Null
+    Set-Location -
 }
 
 # Setting up PowerShell Profile
