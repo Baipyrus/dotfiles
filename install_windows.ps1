@@ -155,7 +155,10 @@ CopyFileWithPrompt "$dotfilesRepo\alacritty\alacritty.toml" "$alacrittyConfigDir
 
 # Setting up Neovim Configuration
 Write-Host "Setting up Neovim configuration..." -ForegroundColor Cyan
-ProcessUrlFiles -sourceDir "$dotfilesRepo\nvim" -destinationDir "$env:LOCALAPPDATA"
+$ubuntu = wsl.exe -l --all | Where-Object { $_.Replace("`0", "") -match '^Ubuntu' }
+if ($null -eq $ubuntu)
+{ ProcessUrlFiles -sourceDir "$dotfilesRepo\nvim" -destinationDir "$env:LOCALAPPDATA"
+}
 
 # Setting up PowerShell Profile
 Write-Host "Setting up PowerShell profile..." -ForegroundColor Cyan
