@@ -156,8 +156,10 @@ Write-Host "Setting up PowerShell profile..." -ForegroundColor Cyan
 CopyFileWithPrompt "$dotfilesRepo\PowerShell\Microsoft.PowerShell_profile.ps1" $psProfile
 
 # Setting up self-made ProxySwitcher
-Write-Host "Setting up ProxySwitcher..." -ForegroundColor Cyan
+Write-Host "============================================" -ForegroundColor DarkGray
+Write-Host "Setting up ProxySwitcher via subscript..." -ForegroundColor Cyan
 Invoke-RestMethod 'https://raw.githubusercontent.com/Baipyrus/ProxySwitcher/main/install.ps1' | Invoke-Expression
+Write-Host "============================================" -ForegroundColor DarkGray
 
 function UnzipAndInstall
 {
