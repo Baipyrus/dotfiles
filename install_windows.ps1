@@ -165,7 +165,7 @@ function UnzipAndInstall
         [string]$source
     )
 
-    # Create temporary directory for curl
+    # Create temporary directory for unzip
     $appname = $source.Split('\')[-1]
     $tmpApp = "$env:TMP\$appname-config"
     if (-not (Test-Path $tmpApp))
