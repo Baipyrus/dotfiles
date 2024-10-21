@@ -126,6 +126,12 @@ function ProcessUrlFiles
             }
             continue
         }
+
+        # Use $tmpApp as destination in case of git repo
+        if (-not $destinationDir)
+        { $destinationPath = "$tmpApp\$fileName"
+        }
+
         # If the URL is a git repository, pull it
         if (IsGitRepository -dir $destinationPath -url $url)
         {
