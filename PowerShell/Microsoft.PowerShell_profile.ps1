@@ -56,4 +56,6 @@ $theme = if ($settings.AppsUseLightTheme)
 }
 
 # Toggle the theme lines based on the current theme
-ToggleThemeLines -theme $theme -content $content -darkLN 2 -lightLN 3 | Set-Content -Path $alacritty
+ToggleThemeLines -theme $theme -content $content -darkLN 3 -lightLN 4 | Set-Content -Path $alacritty
+
+
