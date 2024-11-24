@@ -16,7 +16,8 @@ function WingetInstall
     {
         # Start admin process, import this script, run 'InstallPackages' function
         Start-Process powershell.exe -Verb RunAs -Wait `
-            -ArgumentList "-C", "'Import-Module ./winget.psm1; InstallWinget'"
+            -ArgumentList "-ExecutionPolicy", "Bypass", `
+            "-C", "'Import-Module ./winget.psm1; InstallWinget'"
     }
 
     winget.exe install -s winget --accept-source-agreements (Get-Content ./util/winget.list)
