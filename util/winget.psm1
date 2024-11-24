@@ -15,7 +15,7 @@ function WingetInstall
     if ($install.ToLower() -ne 'n')
     {
         # Start admin process, import this script, run 'InstallPackages' function
-        Start-Process powershell.exe -Verb RunAs `
+        Start-Process powershell.exe -Verb RunAs -Wait `
             -ArgumentList "-C", "'Import-Module ./winget.psm1; InstallWinget'"
         
     }
