@@ -5,7 +5,7 @@ function InstallPackages
 
 function ChocolateyInstall
 {
-    $install = Read-Host "Install as Administrator now? [Y/n]"
+    $install = Read-Host "Install Chocolatey Packages now? [Y/n]"
     if ($install.ToLower() -eq 'n')
     { return
     }

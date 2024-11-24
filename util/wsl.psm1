@@ -17,7 +17,7 @@ function WSLInstall
     { return
     }
 
-    $install = Read-Host "Install WSL2 now? [Y/n]"
+    $install = Read-Host "Install/Update WSL2 now? [Y/n]"
     if ($install.ToLower() -ne 'n')
     {
         # Start admin process, import this script, run 'InstallPackages' function
