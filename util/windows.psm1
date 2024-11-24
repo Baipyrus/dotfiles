@@ -94,6 +94,7 @@ function ProcessUrlFiles
     if (-not (Test-Path $tmpApp))
     { New-Item -ItemType Directory -Path $tmpApp | Out-Null
     }
+    Push-Location
     Set-Location $tmpApp
 
     # Find all .url files in the source directory
@@ -150,7 +151,7 @@ function ProcessUrlFiles
         Write-Host "Cloning $fileName from $url to $destinationPath..." -ForegroundColor Cyan
         git clone $url $destinationPath
     }
-    Set-Location -
+    Pop-Location
 }
 
 # Function to expand zip archives and copy to destination paths

@@ -45,8 +45,10 @@ function InstallWSLNeovim
     Import-Module ./windows.psm1
 
     ProcessUrlFiles -sourceDir $source
+
+    Push-Location
     Set-Location "$env:TMP\nvim-config"
     Write-Host "Copying (forcably) configuration to WSL..." -ForegroundColor Yellow
     wsl.exe cp -rf . ~/.config/ 2>$null | Out-Null
-    Set-Location -
+    Pop-Location
 }
