@@ -1,9 +1,11 @@
+Import-Module ./util/chocolatey.psm1
 Import-Module ./util/windows.psm1
 Import-Module ./util/winget.psm1
 
 
 # (Optionally) Install required Software
 InstallWinget
+InstallChocolatey
 
 # Define paths for tools and configurations
 $dotfilesRepo = "$env:TMP\dotfiles"
