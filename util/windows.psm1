@@ -175,7 +175,7 @@ function UnzipAndInstall
     {
         $fileName = [System.IO.Path]::GetFileNameWithoutExtension($file.Name)
         Write-Host "Extracting archive $tmpApp\$fileName.zip to $tmpApp\$fileName\..." -ForegroundColor Cyan
-        unzip -o "$tmpApp\$fileName.zip" -d "$tmpApp\$fileName" | Out-Null
+        Expand-Archive "$tmpApp\$fileName.zip" -DestinationPath "$tmpApp\$fileName" | Out-Null
 
         Write-Host "Installing fonts from $tmpApp\$fileName\ for current user..." -ForegroundColor Cyan
         Copy-Item -Path "$tmpApp\$fileName\*" -Destination "$env:LOCALAPPDATA\Microsoft\Windows\Fonts\" -Force -ErrorAction SilentlyContinue
