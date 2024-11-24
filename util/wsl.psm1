@@ -23,7 +23,7 @@ function WSLInstall
         # Start admin process, import this script, run 'InstallPackages' function
         Start-Process powershell.exe -Verb RunAs -Wait `
             -ArgumentList "-ExecutionPolicy", "Bypass", `
-            "-C", "Import-Module ./util/wsl.psm1; InstallWSL"
+            "-C", "cd $pwd; ipmo ./util/wsl.psm1; InstallWSL"
     }
     wsl.exe --install -d Ubuntu
 

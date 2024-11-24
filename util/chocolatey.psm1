@@ -13,5 +13,5 @@ function ChocolateyInstall
     # Start admin process, import this script, run 'InstallPackages' function
     Start-Process powershell.exe -Verb RunAs -Wait `
         -ArgumentList "-ExecutionPolicy", "Bypass", `
-        "-C", "Import-Module ./util/chocolatey.psm1; InstallPackages"
+        "-C", "cd $pwd; ipmo ./util/chocolatey.psm1; InstallPackages"
 }
