@@ -5,9 +5,9 @@ Import-Module ./util/wsl.psm1
 
 
 # (Optionally) Install required Software
-InstallWinget
-InstallChocolatey
-InstallWSL
+WingetInstall
+ChocolateyInstall
+WSLInstall
 
 # Define paths for tools and configurations
 $dotfilesRepo = "$env:TMP\dotfiles"
