@@ -13,7 +13,11 @@ function WingetInstall
 {
     $install = Read-Host "Install WinGet now? [Y/n]"
     if ($install.ToLower() -ne 'n')
-    { InstallWinget
+    {
+        # Start admin process, import this script, run 'InstallPackages' function
+        Start-Process powershell.exe -Verb RunAs `
+            -ArgumentList "-C", "'Import-Module ./winget.psm1; InstallWinget'"
+        
     }
 
     winget.exe install -s winget --accept-source-agreements (Get-Content ./util/winget.list)
