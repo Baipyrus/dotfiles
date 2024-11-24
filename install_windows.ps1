@@ -1,11 +1,13 @@
 Import-Module ./util/chocolatey.psm1
 Import-Module ./util/windows.psm1
 Import-Module ./util/winget.psm1
+Import-Module ./util/wsl.psm1
 
 
 # (Optionally) Install required Software
 InstallWinget
 InstallChocolatey
+InstallWSL
 
 # Define paths for tools and configurations
 $dotfilesRepo = "$env:TMP\dotfiles"
@@ -32,13 +34,7 @@ $ubuntu = wsl.exe -l --all | Where-Object { $_.Replace("`0", "") -match '^Ubuntu
 if ($null -eq $ubuntu)
 { ProcessUrlFiles -source "$dotfilesRepo\nvim" -destination "$env:LOCALAPPDATA"
 } else
-{
-    # TODO: Expand into generic WSL setup while installing required dev tools
-    ProcessUrlFiles -sourceDir "$dotfilesRepo\nvim"
-    Set-Location "$env:TMP\nvim-config"
-    Write-Host "Copying (forcably) configuration to WSL..." -ForegroundColor Yellow
-    wsl.exe cp -rf . ~/.config/ 2>$null | Out-Null
-    Set-Location -
+{ InstallWSLNeovim -source "$dotfilesRepo\nvim"
 }
 
 # Setting up PowerShell Profile

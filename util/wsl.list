@@ -1,0 +1,14 @@
+make
+gcc
+ripgrep
+unzip
+git
+xclip
+python3
+python3-venv
+composer
+luarocks
+fd-find
+python3-pip
+python3-pynvim
+openjdk-21-jdk-headless
