@@ -17,14 +17,20 @@ function WSLInstall
     { return
     }
 
-    $install = Read-Host "Install/Update WSL2 now? [Y/n]"
-    if ($install.ToLower() -ne 'n')
+    $update = Read-Host "Install/Update WSL2 now? [Y/n]"
+    if ($update.ToLower() -ne 'n')
     {
         # Start admin process, import this script, run 'InstallPackages' function
         Start-Process powershell.exe -Verb RunAs -Wait `
             -ArgumentList "-ExecutionPolicy", "Bypass", `
             "-C", "cd $pwd; ipmo ./util/wsl.psm1; InstallWSL"
     }
+
+    $install = Read-Host "Install WSL Distribution now? [Y/n]"
+    if ($install.ToLower() -eq 'n')
+    { return
+    }
+
     wsl.exe --install -d Ubuntu
 
     # Add newly created user to sudoers group

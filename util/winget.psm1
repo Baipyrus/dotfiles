@@ -11,13 +11,18 @@ function InstallWinget
 
 function WingetInstall
 {
-    $install = Read-Host "Install/Update WinGet now? [Y/n]"
-    if ($install.ToLower() -ne 'n')
+    $update = Read-Host "Install/Update WinGet now? [Y/n]"
+    if ($update.ToLower() -ne 'n')
     {
         # Start admin process, import this script, run 'InstallPackages' function
         Start-Process powershell.exe -Verb RunAs -Wait `
             -ArgumentList "-ExecutionPolicy", "Bypass", `
             "-C", "cd $pwd; ipmo ./util/winget.psm1; InstallWinget"
+    }
+
+    $install = Read-Host "Install WinGet Packages now? [Y/n]"
+    if ($install.ToLower() -eq 'n')
+    { return
     }
 
     winget.exe install -s winget --accept-source-agreements (Get-Content ./util/winget.list)
