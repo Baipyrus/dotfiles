@@ -19,7 +19,10 @@ function WSLInstall
 
     $install = Read-Host "Install WSL2 now? [Y/n]"
     if ($install.ToLower() -ne 'n')
-    { InstallWSL
+    {
+        # Start admin process, import this script, run 'InstallPackages' function
+        Start-Process powershell.exe -Verb RunAs -Wait `
+            -ArgumentList "-C", "'Import-Module ./wsl.psm1; InstallWSL'"
     }
     wsl.exe --install -d Ubuntu
 
