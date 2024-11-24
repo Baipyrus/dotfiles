@@ -76,20 +76,20 @@ function CopyFileWithPrompt
 function ProcessUrlFiles
 {
     param (
-        [string]$sourceDir,
-        [Parameter(Mandatory=$false)][string]$destinationDir,
+        [string]$source,
+        [Parameter(Mandatory=$false)][string]$destination,
         [Parameter(Mandatory=$false)][string]$fileExt
     )
 
     # Ensure the destination directory exists
-    if ($destinationDir -and (-not (Test-Path $destinationDir)))
+    if ($destination -and (-not (Test-Path $destination)))
     {
-        Write-Host "Creating destination directory $destinationDir..." -ForegroundColor Cyan
-        New-Item -ItemType Directory -Path $destinationDir | Out-Null
+        Write-Host "Creating destination directory $destination..." -ForegroundColor Cyan
+        New-Item -ItemType Directory -Path $destination | Out-Null
     }
 
     # Create temporary directory for curl
-    $appname = $sourceDir.Split('\')[-1]
+    $appname = $source.Split('\')[-1]
     $tmpApp = "$env:TMP\$appname-config"
     if (-not (Test-Path $tmpApp))
     { New-Item -ItemType Directory -Path $tmpApp | Out-Null
@@ -97,13 +97,13 @@ function ProcessUrlFiles
     Set-Location $tmpApp
 
     # Find all .url files in the source directory
-    $urlFiles = Get-ChildItem -Path $sourceDir -Filter '*.url'
+    $urlFiles = Get-ChildItem -Path $source -Filter '*.url'
 
     foreach ($file in $urlFiles)
     {
         $url = Get-Content $file.FullName
         $fileName = [System.IO.Path]::GetFileNameWithoutExtension($file.Name)
-        $destinationPath = "$destinationDir\$fileName"
+        $destinationPath = "$destination\$fileName"
 
         if (-not ($url -match 'git@|https://.*\.git'))
         {
@@ -115,11 +115,11 @@ function ProcessUrlFiles
                 $extension = $fileExt
                 $url += $fileExt
             }
-            $destinationPath = "$destinationDir\$fileName$extension"
+            $destinationPath = "$destination\$fileName$extension"
 
             # Respond only if destination is provided
             $conditional = " to $destinationPath"
-            if (-not $destinationDir)
+            if (-not $destination)
             { $conditional = ''
             }
 
@@ -128,14 +128,14 @@ function ProcessUrlFiles
             $tmpDestination = "$tmpApp\$fileName$extension"
 
             # Copy only if destination is provided
-            if ($destinationDir)
+            if ($destination)
             { CopyFileWithPrompt $tmpDestination $destinationPath
             }
             continue
         }
 
         # Use $tmpApp as destination in case of git repo
-        if (-not $destinationDir)
+        if (-not $destination)
         { $destinationPath = "$tmpApp\$fileName"
         }
 

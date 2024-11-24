@@ -15,7 +15,7 @@ ReadyDotfilesRepo -cwd $currentDir -url $repoUrl -destination $dotfilesRepo
 
 # Setting up Alacritty Configuration
 Write-Host "Setting up Alacritty configuration..." -ForegroundColor Cyan
-ProcessUrlFiles -sourceDir "$dotfilesRepo\alacritty" -destinationDir $alacrittyConfigDir
+ProcessUrlFiles -source "$dotfilesRepo\alacritty" -destination $alacrittyConfigDir
 
 # Copy the main Alacritty configuration file
 CopyFileWithPrompt "$dotfilesRepo\alacritty\alacritty.toml" "$alacrittyConfigDir\alacritty.toml"
@@ -24,7 +24,7 @@ CopyFileWithPrompt "$dotfilesRepo\alacritty\alacritty.toml" "$alacrittyConfigDir
 Write-Host "Setting up Neovim configuration..." -ForegroundColor Cyan
 $ubuntu = wsl.exe -l --all | Where-Object { $_.Replace("`0", "") -match '^Ubuntu' }
 if ($null -eq $ubuntu)
-{ ProcessUrlFiles -sourceDir "$dotfilesRepo\nvim" -destinationDir "$env:LOCALAPPDATA"
+{ ProcessUrlFiles -source "$dotfilesRepo\nvim" -destination "$env:LOCALAPPDATA"
 } else
 {
     # TODO: Expand into generic WSL setup while installing required dev tools
@@ -47,7 +47,7 @@ Write-Host "============================================" -ForegroundColor DarkG
 
 # Installing Nerd Fonts
 Write-Host "Installing Nerd Fonts..." -ForegroundColor Cyan
-ProcessUrlFiles -sourceDir "$dotfilesRepo\nerd-fonts" -fileExt ".zip"
+ProcessUrlFiles -source "$dotfilesRepo\nerd-fonts" -fileExt ".zip"
 UnzipAndInstall -source "$dotfilesRepo\nerd-fonts"
 
 # Final message
