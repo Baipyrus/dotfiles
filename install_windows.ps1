@@ -10,7 +10,7 @@ ChocolateyInstall
 WSLInstall
 
 Write-Host "Installation Steps complete!" -ForegroundColor Cyan
-$continue = Read-Host "Continue with configuration? [Y/n]:"
+$continue = Read-Host "Continue with configuration? [Y/n]"
 if ($continue.ToLower() -eq 'n')
 { return
 }
