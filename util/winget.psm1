@@ -1,5 +1,6 @@
 function InstallWinget
 {
+    $progressPreference = 'silentlyContinue'
     $download = 'https://api.github.com/repos/microsoft/winget-cli/releases/latest'
     $setup = "$env:TMP\winget_setup.msixbundle"
 
@@ -9,9 +10,12 @@ function InstallWinget
         $assets = $releases | Select-Object -ExpandProperty "assets"
         $installer = $assets | Where-Object "name" -Match "msixbundle"
         $url = $installer | Select-Object -ExpandProperty "browser_download_url"
-        Invoke-RestMethod $url -OutFile $setup
+
+        Write-Host "Downloading WinGet '.msixbundle' installer ..."
+        Invoke-WebRequest $url -OutFile $setup
     }
 
+    Write-Host "Installing WinGet app package ..."
     Add-AppxPackage -Path $setup
 }
 
