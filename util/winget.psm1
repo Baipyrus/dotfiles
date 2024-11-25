@@ -1,12 +1,18 @@
 function InstallWinget
 {
-    # Reference: https://learn.microsoft.com/en-us/windows/package-manager/winget/#install-winget-on-windows-sandbox
-    $progressPreference = 'silentlyContinue'
-    Write-Host "Installing WinGet PowerShell module from PSGallery..."
-    Install-PackageProvider -Name NuGet -Force | Out-Null
-    Install-Module -Name Microsoft.WinGet.Client -Force -Repository PSGallery | Out-Null
-    Write-Host "Using Repair-WinGetPackageManager cmdlet to bootstrap WinGet..."
-    Repair-WinGetPackageManager
+    $download = 'https://api.github.com/repos/microsoft/winget-cli/releases/latest'
+    $setup = "$env:TMP\winget_setup.msixbundle"
+
+    if (-not (Test-Path $setup))
+    {
+        $releases = Invoke-RestMethod $download
+        $assets = $releases | Select-Object -ExpandProperty "assets"
+        $installer = $assets | Where-Object "name" -Match "msixbundle"
+        $url = $installer | Select-Object -ExpandProperty "browser_download_url"
+        Invoke-RestMethod $url -OutFile $setup
+    }
+
+    Add-AppxPackage -Path $setup
 }
 
 function WingetInstall
