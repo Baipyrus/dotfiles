@@ -168,6 +168,11 @@ function UnzipAndInstall
     { New-Item -ItemType Directory -Path $tmpApp | Out-Null
     }
 
+    $destination = "$env:LOCALAPPDATA\Microsoft\Windows\Fonts\"
+    if (-not (Test-Path $destination))
+    { New-Item -ItemType Directory -Path $destination | Out-Null
+    }
+
     # Find all .url files in the source directory
     $urlFiles = Get-ChildItem -Path $source -Filter '*.url'
 
@@ -178,6 +183,6 @@ function UnzipAndInstall
         Expand-Archive "$tmpApp\$fileName.zip" -DestinationPath "$tmpApp\$fileName" | Out-Null
 
         Write-Host "Installing fonts from $tmpApp\$fileName\ for current user..." -ForegroundColor Cyan
-        Copy-Item -Path "$tmpApp\$fileName\*" -Destination "$env:LOCALAPPDATA\Microsoft\Windows\Fonts\" -Force -ErrorAction SilentlyContinue
+        Copy-Item -Path "$tmpApp\$fileName\*" -Destination $destination -Force -ErrorAction SilentlyContinue
     }
 }
