@@ -29,7 +29,7 @@ function ReadyDotfilesRepo
     if (IsGitRepository -dir $cwd -url $url)
     {
         Write-Host "Already inside the dotfiles repository. Skipping clone step and pulling..." -ForegroundColor Yellow
-        git pull
+        Write-Host "$(git pull)"
         return $cwd
     }
 
@@ -48,7 +48,7 @@ function ReadyDotfilesRepo
     }
 
     Write-Host "Pulling latest changes from dotfiles repository..." -ForegroundColor Cyan
-    git -C $destination pull
+    Write-Host "$(git -C $destination pull)"
     return $destination
 }
 
