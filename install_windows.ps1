@@ -26,7 +26,7 @@ $repoUrl = "https://github.com/Baipyrus/dotfiles.git"
 $currentDir = (Get-Location).Path
 
 
-ReadyDotfilesRepo -cwd $currentDir -url $repoUrl -destination $dotfilesRepo
+$dotfilesRepo = ReadyDotfilesRepo -cwd $currentDir -url $repoUrl -destination $dotfilesRepo
 
 # Setting up Alacritty Configuration
 Write-Host "Setting up Alacritty configuration..." -ForegroundColor Cyan
