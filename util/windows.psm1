@@ -165,7 +165,8 @@ function ProcessUrlFiles
 function UnzipAndInstall
 {
     param (
-        [string]$source
+        [string]$source,
+        [string]$destination
     )
 
     # Create temporary directory for unzip
@@ -175,7 +176,6 @@ function UnzipAndInstall
     { New-Item -ItemType Directory -Path $tmpApp | Out-Null
     }
 
-    $destination = "$env:LOCALAPPDATA\Microsoft\Windows\Fonts\"
     if (-not (Test-Path $destination))
     { New-Item -ItemType Directory -Path $destination | Out-Null
     }

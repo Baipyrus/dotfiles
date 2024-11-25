@@ -63,7 +63,7 @@ Write-Host "============================================" -ForegroundColor DarkG
 # Installing Nerd Fonts
 Write-Host "Installing Nerd Fonts..." -ForegroundColor Cyan
 ProcessUrlFiles -source "$dotfilesRepo\nerd-fonts" -fileExt ".zip" -progress $false
-UnzipAndInstall -source "$dotfilesRepo\nerd-fonts"
+UnzipAndInstall -source "$dotfilesRepo\nerd-fonts" -destination "$env:LOCALAPPDATA\Microsoft\Windows\Fonts\"
 
 # Final message
 Write-Host "Windows setup complete!" -ForegroundColor Green
