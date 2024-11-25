@@ -132,7 +132,7 @@ function ProcessUrlFiles
             }
 
             Write-Host "Downloading $fileName from $url$conditional..." -ForegroundColor Cyan
-            Invoke-RestMethod $url -OutFile $fileName$extension
+            Invoke-WebRequest $url -OutFile $fileName$extension
             $tmpDestination = "$tmpApp\$fileName$extension"
 
             # Copy only if destination is provided
