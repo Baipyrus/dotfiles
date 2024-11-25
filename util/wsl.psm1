@@ -35,8 +35,8 @@ function WSLInstall
     wsl.exe --install -d Ubuntu
 
     # Add newly created user to sudoers group
-    $user = wsl.exe cut "-d:" "-f1" /etc/passwd
-    wsl.exe -u root echo "echo ""$user ALL=(ALL) NOPASSWD:ALL"" >> /etc/sudoers.d/$user"
+    $user = wsl.exe cut "-d:" "-f1" /etc/passwd | Select-Object -Last 1
+    wsl.exe -u root echo "$user ALL=(ALL) NOPASSWD:ALL" ">>" "/etc/sudoers.d/$user"
 
     # Update packages and install from list
     wsl.exe sudo apt update "&&" sudo apt upgrade "-y"
