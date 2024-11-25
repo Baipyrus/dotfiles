@@ -78,8 +78,15 @@ function ProcessUrlFiles
     param (
         [string]$source,
         [Parameter(Mandatory=$false)][string]$destination,
-        [Parameter(Mandatory=$false)][string]$fileExt
+        [Parameter(Mandatory=$false)][string]$fileExt,
+        [bool]$progress=$true
     )
+
+    # Disable progressbar for faster download
+    $progressPreference = 'continue'
+    if (-not $progress)
+    { $progressPreference = 'silentlyContinue'
+    }
 
     # Ensure the destination directory exists
     if ($destination -and (-not (Test-Path $destination)))
