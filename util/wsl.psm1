@@ -49,7 +49,7 @@ function InstallWSLNeovim
         [string]$source
     )
 
-    Import-Module ./windows.psm1
+    Import-Module ./util/windows.psm1
 
     Push-Location
     ProcessUrlFiles -source $source
