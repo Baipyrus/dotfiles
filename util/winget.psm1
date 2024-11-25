@@ -15,7 +15,7 @@ function InstallWinget
         Invoke-WebRequest $url -OutFile $setup
     }
 
-    Write-Host "Installing WinGet app package ..."
+    Write-Host "Installing WinGet app package..."
     Add-AppxPackage -Path $setup
 }
 

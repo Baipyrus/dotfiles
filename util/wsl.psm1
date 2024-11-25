@@ -1,8 +1,9 @@
 function InstallWSL
 {
-    # Reference: https://learn.microsoft.com/en-us/windows/wsl/install-manual
-    Enable-WindowsOptionalFeature -Online -FeatureName "Microsoft-Windows-Subsystem-Linux" -All -NoRestart
-    Enable-WindowsOptionalFeature -Online -FeatureName "VirtualMachinePlatform" -All -NoRestart
+    Write-Host "Enabling and downloading required Windows Features..."
+    Enable-WindowsOptionalFeature -Online -FeatureName "Microsoft-Windows-Subsystem-Linux" -All -NoRestart | Out-Null
+    Enable-WindowsOptionalFeature -Online -FeatureName "VirtualMachinePlatform" -All -NoRestart | Out-Null
+    Write-Host "Installing WSL2..."
     wsl.exe --install --no-distribution
     wsl.exe --set-default-version 2
 }
