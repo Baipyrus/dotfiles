@@ -46,6 +46,12 @@ if ($null -eq $ubuntu)
 
 # Setting up PowerShell Profile
 Write-Host "Setting up PowerShell profile..." -ForegroundColor Cyan
+# Create local PowerShell profile directory
+$psDir = Split-Path -Path $psProfile
+if (-not (Test-Path $psDir))
+{ New-Item -ItemType Directory -Path $psDir
+}
+# Copy existing startup script to destination
 CopyFileWithPrompt "$dotfilesRepo\PowerShell\Microsoft.PowerShell_profile.ps1" $psProfile
 
 # Setting up self-made ProxySwitcher
