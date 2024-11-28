@@ -47,6 +47,14 @@ function ReadyDotfilesRepo
         return $destination
     }
 
+    # Try using current directory
+    $request = Read-Host "Clone the dotfiles repository anew? [y/N]"
+    if ($request.ToLower() -ne 'y')
+    {
+        Write-Warning "Fallback to current directory (Errors without necessary files)!"
+        return $cwd
+    }
+
     Write-Host "Cloning dotfiles repository..." -ForegroundColor Cyan
     git clone $url $destination
     return $destination
