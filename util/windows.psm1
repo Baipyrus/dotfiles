@@ -178,7 +178,7 @@ function InstallNerdFont
 
     $fileName = [System.IO.Path]::GetFileNameWithoutExtension($source)
     $parent = Get-ChildItem $source | `
-            Select-Object -ExpandProperty Parent | `
+            Select-Object -ExpandProperty Directory | `
             Select-Object -ExpandProperty FullName
     $destination = "$parent\$fileName"
 
