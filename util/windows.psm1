@@ -96,7 +96,7 @@ function ProcessUrlFiles
     }
 
     # Create temporary directory for curl
-    $appname = $source.Split('\')[-1]
+    $appname = [System.IO.Path]::GetDirectoryName($source)
     $tmpApp = "$env:TMP\$appname-config"
     if (-not (Test-Path $tmpApp))
     { New-Item -ItemType Directory -Path $tmpApp | Out-Null
