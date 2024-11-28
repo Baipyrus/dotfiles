@@ -40,15 +40,15 @@ function ReadyDotfilesRepo
     }
 
     # Clone new repo in destination dir if not exists
-    if (-not (Test-Path $destination))
+    if ((Test-Path $destination) -and (IsGitRepository -dir $destination -url $url))
     {
-        Write-Host "Cloning dotfiles repository..." -ForegroundColor Cyan
-        git clone $url $destination
+        Write-Host "Pulling latest changes from dotfiles repository..." -ForegroundColor Cyan
+        Write-Host "$(git -C $destination pull)"
         return $destination
     }
 
-    Write-Host "Pulling latest changes from dotfiles repository..." -ForegroundColor Cyan
-    Write-Host "$(git -C $destination pull)"
+    Write-Host "Cloning dotfiles repository..." -ForegroundColor Cyan
+    git clone $url $destination
     return $destination
 }
 
