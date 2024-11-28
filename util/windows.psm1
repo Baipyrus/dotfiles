@@ -104,9 +104,7 @@ function ProcessUrlFiles
     }
 
     # Create temporary directory for curl
-    $appname = Get-ChildItem $source | `
-            Select-Object -ExpandProperty Directory | `
-            Select-Object -ExpandProperty Name
+    $appname = Split-Path -Leaf $source
     $tmpApp = "$env:TMP\$appname-config"
     if (-not (Test-Path $tmpApp))
     { New-Item -ItemType Directory -Path $tmpApp | Out-Null
