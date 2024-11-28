@@ -168,7 +168,7 @@ function InstallFont
     # Prerequisites / Constants
     Add-Type -AssemblyName PresentationCore
     $destination = "$env:LOCALAPPDATA\Microsoft\Windows\Fonts\"
-    $regKey = "HKLM:\Software\Microsoft\Windows NT\CurrentVersion\Fonts"
+    $regKey = "HKCU:\Software\Microsoft\Windows NT\CurrentVersion\Fonts"
 
     # Create destination directory
     if (-not (Test-Path $destination))
