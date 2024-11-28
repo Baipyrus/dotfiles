@@ -189,7 +189,7 @@ function InstallNerdFont
 
     # Extract contents of zip archive
     Write-Host "Extracting archive $source to $destination..." -ForegroundColor Cyan
-    Expand-Archive $source -DestinationPath $destination | Out-Null
+    Expand-Archive $source -DestinationPath $destination -Force | Out-Null
 
     # Install extracted fonts
     $fontFiles = Get-ChildItem -Path $destination -Include "*.ttf", "*.otf"
@@ -212,6 +212,11 @@ function InstallFont
     Add-Type -AssemblyName PresentationCore
     $destination = "$env:LOCALAPPDATA\Microsoft\Windows\Fonts\"
     $regKey = "HKLM:\Software\Microsoft\Windows NT\CurrentVersion\Fonts"
+
+    # Create destination directory
+    if (-not (Test-Path $destination))
+    { New-Item -ItemType Directory -Path $destination | Out-Null
+    }
 
     # Get Glyph
     $glyph = New-Object -TypeName Windows.Media.GlyphTypeface -ArgumentList $file.FullName
