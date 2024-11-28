@@ -58,7 +58,7 @@ Write-Host "============================================" -ForegroundColor DarkG
 Write-Host "Installing Nerd Fonts..." -ForegroundColor Cyan
 ProcessUrlFiles -source "$dotfilesRepo\nerd-fonts" -fileExt ".zip" -progress $false
 Get-ChildItem -Path "$env:TMP\nerd-fonts-config" -Filter "*.zip" | `
-                ForEach-Object { InstallNerdFont -source $_.FullName }
+                ForEach-Object { InstallFont -source $_.FullName }
 
 # Final message
 Write-Host "Windows setup complete!" -ForegroundColor Green
