@@ -62,3 +62,4 @@ Get-ChildItem -Path "$env:TMP\nerd-fonts-config" -Filter "*.zip" | `
 
 # Final message
 Write-Host "Windows setup complete!" -ForegroundColor Green
+Read-Host "Press any key to continue ..."
