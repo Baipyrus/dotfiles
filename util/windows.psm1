@@ -186,9 +186,59 @@ function InstallNerdFont
 
     foreach ($font in $fontFiles)
     {
-        # TODO:
+        InstallFont $font
     }
 }
 
+# Reference: https://www.alkanesolutions.co.uk/2021/12/06/installing-fonts-with-powershell/
+function InstallFont
+{
+    param
+    (
+        [System.IO.FileInfo]$file
+    )
+
+    # Prerequisites / Constants
+    Add-Type -AssemblyName PresentationCore
+    $destination = "$env:LOCALAPPDATA\Microsoft\Windows\Fonts\"
+    $regKey = "HKLM:\Software\Microsoft\Windows NT\CurrentVersion\Fonts"
+
+    # Get Glyph
+    $glyph = New-Object -TypeName Windows.Media.GlyphTypeface -ArgumentList $file.FullName
+
+    $family = $glyph.Win32FamilyNames['en-us']
+    if ($null -eq $family)
+    { $family = $glyph.Win32FamilyNames.Values | Select-Object -First 1
+    }
+
+    $face = $glyph.Win32FaceNames['en-us']
+    if ($null -eq $face)
+    { $face = $glyph.Win32FaceNames.Values | Select-Object -First 1
+    }
+
+    $name = ("$family $face").Trim()
+    switch ($file.Extension)
+    {
+        ".ttf"
+        { $name = "$name (TrueType)"
+        }
+        ".otf"
+        { $name = "$name (OpenType)"
+        }
+    }
+
+    $destFileName = Join-Path -Path $destination -ChildPath $file.Name
+    Write-Host "Installing font: $file with font name '$name'"
+    If (-not (Test-Path $destFileName))
+    { Copy-Item -Path $file.FullName -Destination $destFileName -Force
+    }
+
+    Write-Host "Registering font: $file with font name '$name'"
+    $keyValue = Get-ItemProperty -Name $name -Path $regKey -ErrorAction SilentlyContinue
+    If (-not $keyValue)
+    {
+        New-ItemProperty -Name $name -Path $regKey `
+            -PropertyType string -Value $file.Name `
+            -Force -ErrorAction SilentlyContinue | Out-Null
     }
 }
