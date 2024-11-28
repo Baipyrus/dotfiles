@@ -161,35 +161,34 @@ function ProcessUrlFiles
     Pop-Location
 }
 
-# Function to expand zip archives and copy to destination paths
-function UnzipAndInstall
+# Function to unzip and install nerd fonts
+function InstallNerdFont
 {
     param (
-        [string]$source,
-        [string]$destination
+        [string]$source
     )
 
-    # Create temporary directory for unzip
-    $appname = $source.Split('\')[-1]
-    $tmpApp = "$env:TMP\$appname-config"
-    if (-not (Test-Path $tmpApp))
-    { New-Item -ItemType Directory -Path $tmpApp | Out-Null
-    }
+    $fileName = [System.IO.Path]::GetFileNameWithoutExtension($source)
+    $parent = $source -split '\\' | Select-Object -SkipLast 1 | Join-String -Separator '\'
+    $destination = "$parent\$fileName"
 
+    # Create destination directory
     if (-not (Test-Path $destination))
     { New-Item -ItemType Directory -Path $destination | Out-Null
     }
 
-    # Find all .url files in the source directory
-    $urlFiles = Get-ChildItem -Path $source -Filter '*.url'
+    # Extract contents of zip archive
+    Write-Host "Extracting archive $source to $destination..." -ForegroundColor Cyan
+    Expand-Archive $source -DestinationPath $destination | Out-Null
 
-    foreach ($file in $urlFiles)
+    # Install extracted fonts
+    $fontFiles = Get-ChildItem -Path $destination -Include "*.ttf", "*.otf"
+
+    foreach ($font in $fontFiles)
     {
-        $fileName = [System.IO.Path]::GetFileNameWithoutExtension($file.Name)
-        Write-Host "Extracting archive $tmpApp\$fileName.zip to $tmpApp\$fileName\..." -ForegroundColor Cyan
-        Expand-Archive "$tmpApp\$fileName.zip" -DestinationPath "$tmpApp\$fileName" | Out-Null
+        # TODO:
+    }
+}
 
-        Write-Host "Installing fonts from $tmpApp\$fileName\ for current user..." -ForegroundColor Cyan
-        Copy-Item -Path "$tmpApp\$fileName\*" -Destination $destination -Force -ErrorAction SilentlyContinue
     }
 }
