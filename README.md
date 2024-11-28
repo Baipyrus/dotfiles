@@ -50,6 +50,9 @@ Alternatively, feel free to run the [install script](./install_windows.ps1) afte
 cloning the repository or directly execute it from shell:
 
 ```pwsh
-# Using 'Invoke-RestMethod' and 'Invoke-Expression'
-irm 'https://raw.githubusercontent.com/Baipyrus/dotfiles/main/install_windows.ps1' | iex
+irm https://api.github.com/repos/Baipyrus/dotfiles/zipball -O "$env:TMP\dotfiles.zip"
+Expand-Archive "$env:TMP\dotfiles.zip" -D "$env:TMP\dotfiles" -F
+gci "$env:TMP\dotfiles\**\install_windows.ps1" | % {
+    saps powershell.exe -Wait -Wo $_.DirectoryName -A "-Ex", "Bypass", "-F", $_.FullName
+}
 ```
