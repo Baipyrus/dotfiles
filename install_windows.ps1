@@ -17,16 +17,10 @@ if ($continue.ToLower() -eq 'n')
 
 
 # Define paths for tools and configurations
-$dotfilesRepo = "$env:TMP\dotfiles"
+$dotfilesRepo = (Get-Location).Path
 $alacrittyConfigDir = "$env:APPDATA\alacritty"
 $psProfile = "$env:USERPROFILE\Documents\PowerShell\Microsoft.PowerShell_profile.ps1"
-$repoUrl = "https://github.com/Baipyrus/dotfiles.git"
 
-# Check if the script is running inside the dotfiles repository
-$currentDir = (Get-Location).Path
-
-
-$dotfilesRepo = ReadyDotfilesRepo -cwd $currentDir -url $repoUrl -destination $dotfilesRepo
 
 # Setting up Alacritty Configuration
 Write-Host "Setting up Alacritty configuration..." -ForegroundColor Cyan
@@ -64,7 +58,7 @@ Write-Host "============================================" -ForegroundColor DarkG
 Write-Host "Installing Nerd Fonts..." -ForegroundColor Cyan
 ProcessUrlFiles -source "$dotfilesRepo\nerd-fonts" -fileExt ".zip" -progress $false
 Get-ChildItem -Path "$env:TMP\nerd-fonts-config" -Filter "*.zip" | `
-        ForEach-Object { InstallNerdFont -source $_.FullName }
+                ForEach-Object { InstallNerdFont -source $_.FullName }
 
 # Final message
 Write-Host "Windows setup complete!" -ForegroundColor Green

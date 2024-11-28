@@ -51,8 +51,8 @@ cloning the repository or directly execute it from shell:
 
 ```pwsh
 irm https://api.github.com/repos/Baipyrus/dotfiles/zipball -O "$env:TMP\dotfiles.zip"
-Expand-Archive "$env:TMP\dotfiles.zip" -D "$env:TMP\dotfiles-zip" -F
-gci "$env:TMP\dotfiles-zip\**\install_windows.ps1" | % {
+Expand-Archive "$env:TMP\dotfiles.zip" -D "$env:TMP\dotfiles" -F
+gci "$env:TMP\dotfiles\**\install_windows.ps1" | select -F 1 | % {
     saps powershell.exe -Wait -Wo $_.DirectoryName -A "-Ex", "Bypass", "-F", $_.FullName
 }
 ```

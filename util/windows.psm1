@@ -17,49 +17,6 @@ function IsGitRepository
     }
 }
 
-function ReadyDotfilesRepo
-{
-    param (
-        [string]$cwd,
-        [string]$url,
-        [Parameter(Mandatory=$false)][string]$destination
-    )
-
-    # Clone dotfiles repository to TMP if not already inside it; otherwise pull changes
-    if (IsGitRepository -dir $cwd -url $url)
-    {
-        Write-Host "Already inside the dotfiles repository. Skipping clone step and pulling..." -ForegroundColor Yellow
-        Write-Host "$(git pull)"
-        return $cwd
-    }
-
-    # Mandatory parameter missing
-    if (-not $PSBoundParameters.ContainsKey('destination'))
-    {
-        throw "Missing mandatory parameter for Repo location."
-    }
-
-    # Clone new repo in destination dir if not exists
-    if ((Test-Path $destination) -and (IsGitRepository -dir $destination -url $url))
-    {
-        Write-Host "Pulling latest changes from dotfiles repository..." -ForegroundColor Cyan
-        Write-Host "$(git -C $destination pull)"
-        return $destination
-    }
-
-    # Try using current directory
-    $request = Read-Host "Clone the dotfiles repository anew? [y/N]"
-    if ($request.ToLower() -ne 'y')
-    {
-        Write-Warning "Fallback to current directory (Errors without necessary files)!"
-        return $cwd
-    }
-
-    Write-Host "Cloning dotfiles repository..." -ForegroundColor Cyan
-    git clone $url $destination
-    return $destination
-}
-
 # Function to copy files with overwrite prompt
 function CopyFileWithPrompt
 {
