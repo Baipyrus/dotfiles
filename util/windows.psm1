@@ -62,8 +62,8 @@ function CopyFileWithPrompt
 
     if (Test-Path $destination)
     {
-        $overwrite = Read-Host "File $destination exists. Overwrite? (y/n)"
-        if ($overwrite -ne 'y')
+        $overwrite = Read-Host "File $destination exists. Overwrite? (y/N)"
+        if ($overwrite.ToLower() -ne 'y')
         {
             Write-Host "Skipping $destination" -ForegroundColor Yellow
             return
