@@ -149,7 +149,7 @@ function InstallNerdFont
     Expand-Archive $source -DestinationPath $destination -Force | Out-Null
 
     # Install extracted fonts
-    $fontFiles = Get-ChildItem -Path $destination -Include "*.ttf", "*.otf"
+    $fontFiles = Get-ChildItem -Path $destination -Recurse -Include "*.ttf", "*.otf"
 
     foreach ($font in $fontFiles)
     {
