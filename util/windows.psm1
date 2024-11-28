@@ -179,7 +179,9 @@ function InstallNerdFont
     )
 
     $fileName = [System.IO.Path]::GetFileNameWithoutExtension($source)
-    $parent = $source -split '\\' | Select-Object -SkipLast 1 | Join-String -Separator '\'
+    $parent = Get-ChildItem $source | `
+            Select-Object -ExpandProperty Parent | `
+            Select-Object -ExpandProperty FullName
     $destination = "$parent\$fileName"
 
     # Create destination directory
