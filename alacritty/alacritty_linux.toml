@@ -1,0 +1,9 @@
+[general]
+import = [
+    "~/.config/alacritty/catppuccin-mocha.toml",
+    # "~/.config/alacritty/catppuccin-latte.toml",
+]
+live_config_reload = true
+
+[font.normal]
+family = "CaskaydiaCove Nerd Font Mono"
