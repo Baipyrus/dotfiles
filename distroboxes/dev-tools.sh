@@ -1,4 +1,7 @@
 #!/bin/bash
+# Create container using:
+# distrobox create -n dev-tools -p -i ghcr.io/ublue-os/fedora-toolbox
+# distrobox enter -n dev-tools
 
 # Install programs and sdks
 sudo dnf install -y gcc make fd-find \
@@ -9,7 +12,8 @@ sudo dnf install -y gcc make fd-find \
 sudo mkdir -p /usr/local/bin
 wget -P /tmp/ https://github.com/neovide/neovide/releases/latest/download/neovide-linux-x86_64.tar.gz
 sudo tar -xvzf /tmp/neovide-linux-x86_64.tar.gz -C /usr/bin/
-sudo chmod +x /usr/bin/neovide-linux-x86_64.tar.gz
+sudo chmod +x /usr/bin/neovide
+sudo chown root: /usr/bin/neovide
 
 # Install neovide desktop file
 wget -P /tmp/ https://raw.githubusercontent.com/neovide/neovide/main/assets/neovide.desktop
