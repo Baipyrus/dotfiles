@@ -12,12 +12,18 @@ sudo dnf install -y gcc make git ripgrep fd-find unzip \
     nodejs-npm alacritty fontconfig libxkbcommon \
     libxkbcommon-x11 libwayland-egl libglvnd-egl
 
-# Install configs (nvim/alacritty)
-git clone https://github.com/Baipyrus/nvim-config.git "${XDG_CONFIG_HOME:-$HOME/.config}"/nvim
-sudo mkdir -p /usr/share/pixmaps/
-wget -P "${XDG_CONFIG_HOME:-$HOME/.config}"/alacritty https://raw.githubusercontent.com/Baipyrus/dotfiles/refs/heads/main/alacritty/alacritty_linux.toml
-wget -P "${XDG_CONFIG_HOME:-$HOME/.config}"/alacritty https://github.com/catppuccin/alacritty/raw/main/catppuccin-latte.toml
-wget -P "${XDG_CONFIG_HOME:-$HOME/.config}"/alacritty https://github.com/catppuccin/alacritty/raw/main/catppuccin-mocha.toml
+# Clone Neovim config
+CFG_PATH="${XDG_CONFIG_HOME:-$HOME/.config}"
+if [ -d $CFG_PATH/nvim ]; then
+    git -C $CFG_PATH/nvim pull
+else
+    git clone https://github.com/Baipyrus/nvim-config.git $CFG_PATH/nvim
+fi
+
+# Download Alacritty configs
+wget -P $CFG_PATH/alacritty https://github.com/Baipyrus/dotfiles/raw/main/alacritty/alacritty_linux.toml
+wget -P $CFG_PATH/alacritty https://github.com/catppuccin/alacritty/raw/main/catppuccin-latte.toml
+wget -P $CFG_PATH/alacritty https://github.com/catppuccin/alacritty/raw/main/catppuccin-mocha.toml
 
 # Export apps
 distrobox-export -a alacritty
