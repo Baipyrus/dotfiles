@@ -5,5 +5,9 @@ import = [
 ]
 live_config_reload = true
 
+[terminal.shell]
+program = "/usr/bin/distrobox-host-exec"
+args = ["bash"]
+
 [font.normal]
 family = "CaskaydiaCove Nerd Font Mono"
