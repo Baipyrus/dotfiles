@@ -26,6 +26,9 @@ wget -P $CFG_PATH/alacritty https://github.com/Baipyrus/dotfiles/raw/main/alacri
 wget -P $CFG_PATH/alacritty https://github.com/catppuccin/alacritty/raw/main/catppuccin-latte.toml
 wget -P $CFG_PATH/alacritty https://github.com/catppuccin/alacritty/raw/main/catppuccin-mocha.toml
 
+# Chande directory to avoid naming overlaps
+cd ./distroboxes/
+
 # Export apps
 distrobox-export -a alacritty
 distrobox-export -a neovide
