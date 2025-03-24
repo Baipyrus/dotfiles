@@ -1,12 +1,13 @@
 #!/bin/bash
 # Create container using:
-# distrobox create -n dev-tools -p -i ghcr.io/ublue-os/fedora-toolbox
+# distrobox create -n dev-tools -p -i quay.io/fedora/fedora:41
 # distrobox enter -n dev-tools
 
 # Install programs and sdks
-sudo dnf install -y gcc make fd-find \
-    neovim dotnet-sdk-8.0 golang composer \
-    nodejs-npm libxkbcommon alacritty
+sudo dnf install -y gcc make git ripgrep fd-find unzip \
+    neovim dotnet-sdk-8.0 golang composer wget \
+    nodejs-npm alacritty fontconfig libxkbcommon \
+    libxkbcommon-x11 libwayland-egl libglvnd-egl
 
 # Install neovide
 sudo mkdir -p /usr/local/bin
