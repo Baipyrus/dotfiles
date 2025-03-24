@@ -10,7 +10,8 @@ sudo dnf install -y --nogpgcheck --repofrompath 'terra,https://repos.fyralabs.co
 sudo dnf install -y gcc make git ripgrep fd-find unzip \
     neovide neovim dotnet-sdk-8.0 golang composer wget \
     nodejs-npm alacritty fontconfig libxkbcommon \
-    libxkbcommon-x11 libwayland-egl libglvnd-egl
+    libxkbcommon-x11 libwayland-egl libglvnd-egl \
+    git-credential-oauth
 
 # Clone Neovim config
 CFG_PATH="${XDG_CONFIG_HOME:-$HOME/.config}"
