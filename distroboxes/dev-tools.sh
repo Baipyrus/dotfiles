@@ -4,14 +4,11 @@
 # distrobox enter -n dev-tools
 
 # Install Fyra Labs Terra repository
-sudo dnf install -y --nogpgcheck --repofrompath 'terra,https://repos.fyralabs.com/terra$releasever' terra-release
+sudo dnf install -y --nogpgcheck --repofrompath \
+    'terra,https://repos.fyralabs.com/terra$releasever' terra-release
 
 # Install programs and sdks
-sudo dnf install -y gcc make git ripgrep fd-find unzip \
-    neovide neovim dotnet-sdk-8.0 golang composer wget \
-    nodejs-npm alacritty fontconfig libxkbcommon \
-    libxkbcommon-x11 libwayland-egl libglvnd-egl \
-    git-credential-oauth jq
+sudo dnf install -y $(cat dnf.list)
 
 # Fetch and try installing PowerShell from GitHub
 download_url="https://api.github.com/repos/PowerShell/PowerShell/releases/latest"
