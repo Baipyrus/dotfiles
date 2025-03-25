@@ -7,9 +7,13 @@ unzip
 jq
 wget
 neovim
+rust
+cargo
 dotnet-sdk-8.0
 golang
 nodejs-npm
+luarocks
+java-latest-openjdk-devel
 composer
 alacritty
 neovide
