@@ -24,5 +24,6 @@ cd ./distroboxes/
 # Export apps
 distrobox-export -a alacritty
 distrobox-export -a neovide
-distrobox-export -b /usr/bin/neovide
-distrobox-export -b /usr/bin/nvim
+distrobox-export -b $(which neovide)
+distrobox-export -b $(which nvim)
+distrobox-export -b $(which rg)

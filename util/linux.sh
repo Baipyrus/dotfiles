@@ -16,6 +16,7 @@ else
 fi
 
 # Download Alacritty configs
-wget -P $CFG_PATH/alacritty https://github.com/Baipyrus/dotfiles/raw/main/alacritty/alacritty_linux.toml
-wget -P $CFG_PATH/alacritty https://github.com/catppuccin/alacritty/raw/main/catppuccin-latte.toml
-wget -P $CFG_PATH/alacritty https://github.com/catppuccin/alacritty/raw/main/catppuccin-mocha.toml
+cp -f alacritty/alacritty_linux.toml $CFG_PATH/alacritty/alacritty.toml
+rm -f $CFG_PATH/alacritty/catppuccin*
+wget -P $CFG_PATH/alacritty $(cat alacritty/catppuccin-latte.url)
+wget -P $CFG_PATH/alacritty $(cat alacritty/catppuccin-mocha.url)
