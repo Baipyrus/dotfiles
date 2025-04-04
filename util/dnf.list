@@ -18,6 +18,8 @@ composer
 alacritty
 neovide
 git-credential-oauth
+cascadia-code-nf-fonts
+cascadia-mono-nf-fonts
 fontconfig
 libxkbcommon
 libxkbcommon-x11

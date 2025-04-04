@@ -3,6 +3,9 @@
 # distrobox create -n dev-tools -p -i quay.io/fedora/fedora:41
 # distrobox enter -n dev-tools
 
+# Enable dnf copr repository for nerd fonts
+sudo dnf copr enable -y che/nerd-fonts 
+
 # Install Fyra Labs Terra repository
 sudo dnf install -y --nogpgcheck --repofrompath \
     'terra,https://repos.fyralabs.com/terra$releasever' terra-release

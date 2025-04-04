@@ -10,4 +10,4 @@ program = "/usr/bin/distrobox-host-exec"
 args = ["bash"]
 
 [font.normal]
-family = "CaskaydiaCove Nerd Font Mono"
+family = "Cascadia Code NF"
