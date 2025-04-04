@@ -6,7 +6,7 @@ fd-find
 unzip
 jq
 wget
-neovim
+ffmpeg
 rust
 cargo
 dotnet-sdk-8.0
@@ -16,6 +16,7 @@ luarocks
 java-latest-openjdk-devel
 composer
 alacritty
+neovim
 neovide
 git-credential-oauth
 cascadia-code-nf-fonts

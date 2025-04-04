@@ -6,6 +6,11 @@
 # Enable dnf copr repository for nerd fonts
 sudo dnf copr enable -y che/nerd-fonts 
 
+# Install RPMFusion for hardware accelerated encoding/decoding
+dnf install -y \
+    "https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm" \
+    "https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm"
+
 # Install Fyra Labs Terra repository
 sudo dnf install -y --nogpgcheck --repofrompath \
     'terra,https://repos.fyralabs.com/terra$releasever' terra-release
