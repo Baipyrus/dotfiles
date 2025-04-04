@@ -8,7 +8,7 @@ sudo dnf install -y --nogpgcheck --repofrompath \
     'terra,https://repos.fyralabs.com/terra$releasever' terra-release
 
 # Install programs and sdks
-sudo dnf install -y $(cat dnf.list)
+sudo dnf install -y $(cat util/dnf.list)
 
 # Fetch and try installing PowerShell from GitHub
 download_url="https://api.github.com/repos/PowerShell/PowerShell/releases/latest"
